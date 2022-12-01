@@ -882,7 +882,7 @@ journal <- "Biorivx"
 dir.create(paste0("../figures/", journal, "/"))
 
 for(i in c("tiff", "jpeg")){
-save_plot(plot = fig2, filename = paste0("../figures/", journal, "/fig2.", i), dpi = 300, base_width = 12, bg = "white")
+save_plot(plot = fig2, filename = paste0("../figures/", journal, "/fig2.", i), dpi = 300, base_width = 10, bg = "white")
 save_plot(plot = fig3, filename = paste0("../figures/", journal, "/fig3.", i), dpi = 300, base_width = 10, bg = "white")
 save_plot(plot = fig5, filename = paste0("../figures/", journal, "/fig5.", i), dpi = 300, base_width = 8, base_height = 3, bg = "white")
 }
