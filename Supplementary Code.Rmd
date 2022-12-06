@@ -1,6 +1,6 @@
 ---
 title: "Supplementary Material"
-subtitle: "Heating tolerance of an ectotherm does not vary when temperature’s influence on biological rates is accounted for"
+subtitle: "Heating tolerance of ectotherms is explained by temperature’s non-linear influence on biological rates"
 date: "`r format(Sys.Date(), '%d/%m/%Y')`"
 author:
   - Jacinta Kong^[Trinity College Dublin, Ireland, kongj@tcd.ie]
@@ -846,7 +846,7 @@ p2 <- plot_grid(heating_graph + theme(legend.position="none"),
                 # rescaled_tolerances + theme(legend.position="none"),
                 labels = "AUTO", nrow = 1, align = "hv", hjust = -1, label_size = 10)
 
-fig2 <- plot_grid(p2, legend, rel_widths =c(3, 0.4))
+fig2 <- plot_grid(p2, legend, rel_widths =c(3, 0.5))
 fig2
 
 # prediction graphs
@@ -894,7 +894,7 @@ save_plot(plot = pred1, filename = paste0("../figures/", journal, "/figS3.jpeg")
 save_plot(plot = pred2, filename = paste0("../figures/", journal, "/figS4.jpeg"), dpi = 300, bg = "white")
 
 # data
-write.csv(ARR, file = "rescaled_heating_tolerances_data.csv", row.names = FALSE)
+# write.csv(ARR, file = "rescaled_heating_tolerances_data.csv", row.names = FALSE)
 ```
 
 ***
