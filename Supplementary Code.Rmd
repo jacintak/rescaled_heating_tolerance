@@ -1,6 +1,6 @@
 ---
 title: "Supplementary Material"
-subtitle: "Heating tolerance of ectotherms is explained by temperature’s non-linear influence on biological rates"
+subtitle: "Heating tolerance of ectotherms scales with temperature’s non-linear influence on biological rates"
 date: "`r format(Sys.Date(), '%d/%m/%Y')`"
 author:
   - Jacinta Kong^[Trinity College Dublin, Ireland, kongj@tcd.ie]
@@ -41,13 +41,13 @@ options(tibble.width = Inf)
 ```
 
 **README**  
-This document presents the full workflow of *Heating tolerance of an ectotherm does not vary when temperature’s influence on biological rates is accounted for*, including the full derivation of the equations, data processing and generating figures for the study. Figure and equation numbering here is independent of the main and supplemental text. 
+This document presents the full workflow of *Heating tolerance of ectotherms scales with temperature’s non-linear influence on biological rates*, including the full derivation of the equations, data processing and generating figures for the study. Figure and equation numbering here is independent of the main and supplemental text. 
 
 The analysis was conducted in `r R.version.string` [@R-base] running `Tidyverse` [@R-tidyverse] & `cowplot` [@R-cowplot]. This document was created using `bookdown` [@R-bookdown] ([Session info]). Top right drop down menu can show code and download the Rmarkdown file. 
 
 ***
 
-# Heating tolerance data
+# Thermal tolerance data
 
 ```{r import}
 ARR <- readxl::read_excel("../data/Morley2018.xlsx",  skip = 8) %>% 
@@ -71,7 +71,7 @@ ARR <- readxl::read_excel("../data/Morley2018.xlsx",  skip = 8) %>%
   mutate(tc_low = tc_high - (ARR * acclim_window)) 
 ```
 
-We used the acclimation dataset available from the [Polar Data Centre](https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359) under an Open Government Licence v3.0 [@Morley2018]. The data was published in @Morley2019. The dataset contains Acclimation Response Ratios (ARR), acclimation temperatures ($T_a$) and upper thermal tolerance limits ($T_c$) of ectotherms compiled from the literature between 1960 - 2015. Ectotherms were acclimated for between `r min(ARR$'Acclimation duration/ days')` and `r max(ARR$'Acclimation duration/ days')` days to a lower temperature (`ta_low`) or a higher temperature (`ta_high`) to give paired observations for each species. Animals were heated under a constant ramping temperature from $T_a$ until the point of organismal collapse ($T_c$), called CT~max~ in @Morley2019. Upper thermal tolerance limits were assayed for both acclimation temperatures in paired observations for a species (`tc_low` or `tc_high`). Within paired observations, each species was measured at the same constant heating rate, but heating rates varied among paired observations representing independent species or experimental assays. Data were only included if each species had $T_c$ measured for two different starting $T_a$, allowing us to compare heating tolerances both within and among species.
+We used the acclimation dataset available from the [Polar Data Centre](https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359) under an Open Government Licence v3.0 [@Morley2018]. The data was published in @Morley2019. The dataset contains Acclimation Response Ratios (ARR), acclimation temperatures ($T_a$) and upper thermal tolerance limits ($T_c$) of ectotherms compiled from the literature between 1960 - 2015. Ectotherms were acclimated for between `r min(ARR$'Acclimation duration/ days')` and `r max(ARR$'Acclimation duration/ days')` days to a lower temperature (`ta_low`) or a higher temperature (`ta_high`) to give paired observations for each species. Animals were heated under a constant ramping temperature from $T_a$ until the point of organismal collapse ($T_c$), called CT~max~ in @Morley2019. Upper thermal tolerance limits were assayed for both acclimation temperatures in paired observations for a species (`tc_low` or `tc_high`). Within paired observations, each species was measured at the same constant heating rate, and heating rates varied among paired observations representing independent species or experimental assays. Data were only included if each species had $T_c$ measured for two different starting $T_a$, allowing us to compare heating tolerances both within and among species.
 
 The dataset contained `r nrow(ARR)` observations of `r length(unique(ARR$Name))` species from `r length(unique(ARR$Class))` Classes representing marine, terrestrial and freshwater habitats (7 Phyla: Chordata, Arthropoda, Mollusca, Platyhelminthes, Echinodermata, Brachiopoda and Cnidaria).
 
@@ -121,7 +121,6 @@ heating_graph
 ***
 
 # Rescaling heating tolerance via heating duration
-## Physiological processes underlying heating responses scale non-linearly with temperature
 
 ```{r constants}
 # Define constants for rescaling
@@ -133,7 +132,7 @@ Tk <- 273.15
 beta_K <- 0.6 / (k * Tk)
 ```
 
-If the endpoint of upper thermal tolerance limits is the product of biological processes and rates, then we may expect these rates to scale with temperature, independent of heating rate. Thus, acclimation temperature influences upper thermal tolerance limits via a non-linear thermal dependence. We use the Universal Temperature Dependence of biological rates (i.e., Boltzmann-Arrhenius equation, Equation \@ref(eq:BA)) to represent the non-linear effect of temperature on biological rates. We assume that the Boltzmann-Arrhenius equation adequately encompasses all physiological processes underlying heating tolerance and upper thermal tolerance limits, at least phenomenologically.
+We use the Boltzmann-Arrhenius equation, Equation \@ref(eq:BA), to represent the non-linear temperature-dependence of biological rates. We assume that the Boltzmann-Arrhenius equation adequately encompasses all physiological processes underlying heating tolerance and upper thermal tolerance limits, at least phenomenologically.
 
 Mass-specific biological rates ($r$) increase with temperature following:
 
@@ -173,11 +172,10 @@ $$
 
 Here, $T$ are temperatures in degrees Celsius and $\tau$ are normalised temperatures that are centred around the normalisation constant $T_K$. $\tau$ is unitless and can be converted back into degrees Celsius by $T = \tau \times T_K$. 
 
-
 Substituting the normalisation constant $T_K$ as $T_{a1}$ and temperature $T$ (in &deg;C) as $T_{a2}$ in Equation \@ref(eq:eq1), we can derive an initial expression that rescales heating durations by accounting for acclimation temperature: 
 
 $$\Delta t_r = e^{\frac{E}{kT_K}}e^{-\frac{E}{kT}} \Delta t(T)$$
-Subscript $r$ denotes variables rescaled by the non-linear temperature dependence of physiological rates (Table \@ref(tab:maths)). $\Delta t_r$ are rescaled heating durations that correspond to non-rescaled heating duration ($\Delta t$).
+Subscript $r$ denotes variables rescaled by the non-linear temperature dependence of biological rates (Table \@ref(tab:maths)). $\Delta t_r$ are rescaled heating durations that correspond to non-rescaled heating duration ($\Delta t$).
 
 Rescaled heating duration can be written as an integral between the start ($t_a$) and end times ($t_c$) of the heating assay, assuming a constant temperature ramp:
 
@@ -260,7 +258,7 @@ Equations \@ref(eq:eq6a) and \@ref(eq:eq6b) approach the identity for $\beta x \
 
 Thus, Equation \@ref(eq:eq7b) can be used to calculate normalised heating tolerances $\Delta \tau$ from a known rescaled heating duration $\Delta t_r$, and thus can be used to calculate heating tolerance in degrees Celsius, $H$.
 
-Equations \@ref(eq:eq7a) and \@ref(eq:eq7b) involves two steps: first the heating rate is rescaled by the term $e^{\beta \tau_{a}}$ that depends on the starting temperature of the assay (to correct for acclimation temperature), second Equations \@ref(eq:eq6a) and \@ref(eq:eq6b) account for the change in temperature as the heating assay progresses via integration of the Universal Temperature Dependence.
+Equations \@ref(eq:eq7a) and \@ref(eq:eq7b) involves two steps: first the heating rate is rescaled by the term $e^{\beta \tau_{a}}$ that depends on the starting temperature of the assay (to correct for acclimation temperature), second Equations \@ref(eq:eq6a) and \@ref(eq:eq6b) account for the change in temperature as the heating assay progresses via integration of the temperature-dependence of biological rates.
 
 Rescaling heating durations and heating tolerance is dependent on three assumptions: 1) Heating tolerance is arbitrarily defined with respect to 0&deg;C, 2) heating rate is constant, and 3) the Arrhenius relationship is not affected by the physiological state of the organism or the experimental conditions (i.e., $E$ does not change).
 
@@ -404,8 +402,8 @@ delta_tr_gen <- function(x, ev, k = 8.61733*10^-5, Tk = 273.15) { # ev is activa
   # Add predictions of high from low and conversely low from high
   x <- x %>% 
     mutate(activation = ev,
-           delta_tau_high_hat = f_beta_fun_gen(exp(beta_K_sensi * (tau_a_low - tau_a_high)) * g_beta_fun_gen(delta_tau_low)), # predict high from low
-           delta_tau_low_hat = f_beta_fun_gen(exp(beta_K_sensi * (tau_a_high - tau_a_low)) * g_beta_fun_gen(delta_tau_high))) # predict low from high
+           delta_tau_high_hat = f_beta_fun_gen(exp(beta_K_sensi * (tau_a_low - tau_a_high)) * g_beta_fun_gen(delta_tau_low)), # estimate high from low
+           delta_tau_low_hat = f_beta_fun_gen(exp(beta_K_sensi * (tau_a_high - tau_a_low)) * g_beta_fun_gen(delta_tau_high))) # estimate low from high
 
   return(x) # as list
 }
@@ -442,18 +440,18 @@ sensi_plot
 
 # Predicting heating tolerance for a new acclimation temperature
 
-We can use rescaled heating durations to predict heating tolerances measured at a different acclimation temperature ($a2$) from a known acclimation temperature ($a1$) and heating tolerance. 
+To test the importance of considering acclimation temperature and the non-linear temperature-dependence of biological rates in our analysis, we can use rescaled heating durations to estimate heating tolerances measured at a different acclimation temperature ($a2$) from a known acclimation temperature ($a1$) and heating tolerance under increasing derivations of our calculations. If our estimations match our observed values, then our formulations are suitable.
 
 ```{r pred-fun}
-# Add predictions of high from low and conversely low from high
+# Add estimations of high from low and conversely low from high
 ARR <- ARR %>% 
-  mutate(delta_tau_high_hat = f_beta_fun(exp(beta_K * (tau_a_low - tau_a_high)) * g_beta_fun(delta_tau_low)), # predict high from low (Equation 12)
-         delta_tau_low_hat = f_beta_fun(exp(beta_K * (tau_a_high - tau_a_low)) * g_beta_fun(delta_tau_high))) # predict low from high (Equation 13)
+  mutate(delta_tau_high_hat = f_beta_fun(exp(beta_K * (tau_a_low - tau_a_high)) * g_beta_fun(delta_tau_low)), # estimate high from low (Equation 12)
+         delta_tau_low_hat = f_beta_fun(exp(beta_K * (tau_a_high - tau_a_low)) * g_beta_fun(delta_tau_high))) # estimate low from high (Equation 13)
 ```
 
 ## Assuming heating tolerances are the same
 
-The simplest model to predict a new heating tolerance from a new acclimation temperature is to assume that heating tolerances at the higher and lower acclimation temperature experiments are the same. For example, we can predict the heating tolerance at the higher acclimation temperature $\Delta \tau (\tau_{a2})$, from the lower acclimation temperature, $\Delta \tau (\tau_{a1})$.
+The simplest formula to estimate a new heating tolerance from a new acclimation temperature is to assume that heating tolerances at the higher and lower acclimation temperature experiments are the same. For example, we can estimate the heating tolerance at the higher acclimation temperature $\Delta \tau (\tau_{a2})$, from the lower acclimation temperature, $\Delta \tau (\tau_{a1})$.
 
 \begin{equation}
 \Delta \tau (\tau_{a2}) \approx \Delta \tau (\tau_{a1}) (\#eq:eq8)
@@ -466,7 +464,7 @@ pred1 <- ggplot(data = ARR,
   geom_point() + 
   geom_abline(intercept = 0, slope = 1, lty = 2, alpha = 0.6) + 
   geom_smooth(method = "lm", se = FALSE, col = "darkgrey") + 
-  labs(x = expression("Predicted heating tolerance (\u00B0C)"),
+  labs(x = expression("Estimated heating tolerance (\u00B0C)"),
        y = expression("Observed heating tolerance (\u00B0C)")) + 
   scale_x_continuous(expand = c(0,0), limits = c(0, 40)) +
   scale_y_continuous(expand = c(0,0), limits = c(0, 40))
@@ -487,7 +485,7 @@ Next, we can correct for the difference in acclimation temperatures by rescaling
 
 ```{r pred2, fig.cap = "Predicting higher acclimation temperature heating tolerance correcting for acclimation temperature"}
 pred2 <- pred1 + aes(x = (delta_tau_low * exp(beta_K * (tau_a_low - tau_a_high))) * Tk) +
-  labs(x = expression("Predicted heating tolerance (\u00B0C)")) 
+  labs(x = expression("Estimated heating tolerance (\u00B0C)")) 
 pred2
 ```
 
@@ -495,16 +493,16 @@ Using Equation \@ref(eq:eq9) underestimates the heating tolerance at the higher 
 
 ## Account for difference in acclimation temperature and change in temperature
 
-Finally, we can derive a more precise prediction that fully accounts for the change to heating tolerance that occurs during the experiment as the temperature is increased using Equation \@ref(eq:eq10).
+Finally, we can derive a more precise formulation that fully accounts for the change to heating tolerance that occurs during the experiment as the temperature is increased using Equation \@ref(eq:eq10).
 
 \begin{equation}
 \Delta \tau (\tau_{a2}) \approx f_\beta \big(e^{\beta (\tau_{a1} - \tau_{a2})} g_\beta(\Delta \tau(\tau_{a1})) \big)
 (\#eq:eq10)
 \end{equation}
 
-```{r pred3, fig.cap = "Correction for acclimation temperature and change in temperature over time to predict heating tolerance at the higher acclimation temperature from the lower acclimation temperature."}
+```{r pred3, fig.cap = "Correction for acclimation temperature and change in temperature over time to estimate heating tolerance at the higher acclimation temperature from the lower acclimation temperature."}
 pred3 <- pred1 + aes(x = delta_tau_high_hat * Tk) + 
-  labs(x = expression("Predicted heating tolerance (\u00B0C)"))
+  labs(x = expression("Estimated heating tolerance (\u00B0C)"))
 pred3
 ```
 
@@ -515,7 +513,9 @@ pred_high_low <- lm(delta_tau_high ~ delta_tau_high_hat,
                    data = ARR)
 ```
 
-The $R^2$ is `r round(summary(pred_high_low)$r.squared, 4)*100`%. And as we can predict heating tolerance at the higher acclimation temperature from the lower acclimation temperature in Figure \@ref(fig:pred3), so we can also predict heating tolerance at the lower acclimation temperature from heating tolerance at the higher temperature using Equation \@ref(eq:eq10b) (Figure \@ref(fig:pred4)).
+The $R^2$ is `r round(summary(pred_high_low)$r.squared, 4)*100`%. 
+
+To test the consistency of the rescaling analysis between the two acclimation temperatures, we can estimate heating tolerance at the higher acclimation temperature from the lower acclimation temperature in Figure \@ref(fig:pred3), and estimate heating tolerance at the lower acclimation temperature from heating tolerance at the higher temperature using Equation \@ref(eq:eq10b) (Figure \@ref(fig:pred4)).
 
 \begin{equation}
 \Delta \tau (\tau_{a1}) \approx f_\beta \big(e^{\beta (\tau_{a2} - \tau_{a1})} g_\beta(\Delta \tau(\tau_{a2})) \big)
@@ -525,8 +525,8 @@ The $R^2$ is `r round(summary(pred_high_low)$r.squared, 4)*100`%. And as we can 
 ```{r pred4, fig.cap = "Predicting lower temperature heating tolerance from higher temperature heating tolerance"}
 pred4 <- pred1 + aes(x = delta_tau_low_hat * Tk,
                      y = delta_tau_low * Tk) + 
-  # ggtitle("Predict low from high") +
-  labs(x = expression("Predicted heating tolerance (\u00B0C)"), 
+  # ggtitle("estimate low from high") +
+  labs(x = expression("Estimated heating tolerance (\u00B0C)"), 
        y = expression("Observed heating tolerance (\u00B0C)")) 
 
 pred4
@@ -539,7 +539,7 @@ pred_low_high <- lm(delta_tau_low ~ delta_tau_low_hat,
                    data = ARR)
 ```
 
-The $R^2$ is `r round(summary(pred_low_high)$r.squared, 4)*100`%. Equations \@ref(eq:eq10) and \@ref(eq:eq10b) converts normalised heating tolerance at one acclimation temperature into rescaled heating tolerance (via $g_\beta$), corrects for the difference in acclimation temperature along the non-linear Universal Temperature Dependence (via $e^{\beta\tau}$), and converts rescaled and biological rate-corrected heating tolerance into normalised heating tolerance at the other acclimation temperature (via $f_\beta$). 
+The $R^2$ is `r round(summary(pred_low_high)$r.squared, 4)*100`%. Equations \@ref(eq:eq10) and \@ref(eq:eq10b) converts normalised heating tolerance at one acclimation temperature into rescaled heating tolerance (via $g_\beta$), corrects for the difference in acclimation temperature along the non-linear temperature-dependence of biological rates (via $e^{\beta\tau}$), and converts rescaled and biological rate-corrected heating tolerance into normalised heating tolerance at the other acclimation temperature (via $f_\beta$). 
 
 ******
 
@@ -613,7 +613,7 @@ rate_ratios <- species_data %>%
     return(x)}) %>% 
   distinct() %>% # Remove duplications created by expand grid
   ungroup() %>% 
-  # Calculate predicted normalised heating tolerance at the second acclimation temperature, corrected for heating rate (Equation 20)
+  # Calculate estimated normalised heating tolerance at the second acclimation temperature, corrected for heating rate (Equation 20)
   mutate(delta_tau2_hat = f_beta_fun(exp(beta_K * (tau_a1-tau_a2)) * (lambda_ratio ^ (1 - gg)) * g_beta_fun(delta_tau1)),
          delta_tau2_hat_inter = f_beta_fun(exp(beta_K * (tau_a1-tau_a2)) * (lambda_ratio ^ (1 - 0.7656548)) * g_beta_fun(delta_tau1)))
 
@@ -648,7 +648,7 @@ which is a logarithmic, temperature-dependent relationship between observed heat
 
 In a plot of normalised heating tolerance ($\Delta \tau$) against the transformed variable $f_\beta (\hat{\lambda})$, the null hypothesis is supported if the points fall along the identity (1:1) line. If points systematically fall below the 1:1 line, then the null hypothesis is not supported.
 
-```{r departure, fig.cap = "Predicted heating tolerance versus observed heating tolerance for species with varying heating rates (107 observations). Colours are species (n = 37)."}
+```{r departure, fig.cap = "Estimateed heating tolerance versus observed heating tolerance for species with varying heating rates (107 observations). Colours are species (n = 37)."}
 g_departure <- species_data %>%
   filter(experiment == "variable") %>% 
   group_by(Name) %>% 
@@ -661,7 +661,7 @@ g_departure <- species_data %>%
   geom_point() + 
   geom_line(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, lty = 2, alpha = 0.6) +
-  labs(x = expression("Predicted heating tolerance (\u00B0C)"), 
+  labs(x = expression("Estimated heating tolerance (\u00B0C)"), 
        y = expression("Observed heating tolerance (\u00B0C)")) +
   scale_colour_viridis_d(option = "C") +
   scale_x_continuous(expand = c(0,0), limits = c(0, 100)) +
@@ -671,7 +671,7 @@ g_departure <- species_data %>%
 g_departure
 ```
 
-We used the slowest heating rate of each species to test whether heating rate had no effect on rescaled heating duration and thus predicted heating tolerance. The null hypothesis was not supported because points systematically fall below the 1:1 line (Figure \@ref(fig:departure)).
+We used the slowest heating rate of each species to test whether heating rate had no effect on rescaled heating duration and thus estimated heating tolerance. The null hypothesis was not supported because points systematically fall below the 1:1 line (Figure \@ref(fig:departure)).
 
 To visualize the effect of heating rate on rescaled heating tolerance, we plot the ratio of rescaled heating duration for a paired observation within a species with the corresponding ratio for paired heating rate. The relationship between the ratio of rescaled heating duration and the ratio of heating rate is described by an allometric scaling equation in the form $\Delta t_r (\lambda) \sim c \lambda^{- \gamma}$ where $c$ depends only on the experimental protocol and the species-specific scaling exponent, $\gamma$. Points should fall along the identity line if heating rate does not affect rescaled heating tolerance (i.e., a scaling exponent of -1).
 
@@ -715,17 +715,17 @@ Since higher heating rates reduces rescaled heating tolerance following a phenom
 (\#eq:eq14)
 \end{equation}
 
-and therefore that from one heating tolerance $\Delta \tau_1$ we should be able to predict any other $\Delta \tau_2$. Using Equation \@ref(eq:eq14) we can deduce $\Delta t_r (\lambda_2)$ and from Equations \@ref(eq:eq7a) and \@ref(eq:eq7b) leads to:
+and therefore that from one heating tolerance $\Delta \tau_1$ we should be able to estimate any other $\Delta \tau_2$. Using Equation \@ref(eq:eq14) we can deduce $\Delta t_r (\lambda_2)$ and from Equations \@ref(eq:eq7a) and \@ref(eq:eq7b) leads to:
 
 \begin{equation}
 \Delta\tau_2 = f_{\beta}\Bigg(e^{\beta(\tau_{a1}-\tau_{a2})}\bigg(\frac{\lambda_2}{\lambda_1}\bigg)^{1-\gamma}g_{\beta}\big(\Delta\tau_1\big)\Bigg)
 (\#eq:eq15)
 \end{equation}
 
-That is, we can predict one heating tolerance $\Delta\tau_2$ from another $\Delta\tau_1$ using Equation \@ref(eq:eq15) which incorporates the correction for the effect of heating rate on rescaled heating duration using a species specific scaling exponent ($\gamma$). We use species-specific scaling exponents in subsequent calculations for precision. Doing so, we see strong concordance of the observed heating tolerance (`delta_tau2`) and the estimated value using Equation \@ref(eq:eq15) (`delta_tau2_hat`).
+That is, we can estimate one heating tolerance $\Delta\tau_2$ from another $\Delta\tau_1$ using Equation \@ref(eq:eq15) which incorporates the correction for the effect of heating rate on rescaled heating duration using a species specific scaling exponent ($\gamma$). We use species-specific scaling exponents in subsequent calculations for precision. Doing so, we see strong concordance of the observed heating tolerance (`delta_tau2`) and the estimated value using Equation \@ref(eq:eq15) (`delta_tau2_hat`).
 
-```{r gamma, fig.cap = "Predicted heating tolerance corrected using species-specific scaling exponents for the allometric relationship between rescaled heating duration and heating rate. Colours are species."}
-g_predict_tau <- rate_ratios %>% 
+```{r gamma, fig.cap = "Estimated heating tolerance corrected using species-specific scaling exponents for the allometric relationship between rescaled heating duration and heating rate. Colours are species."}
+g_estimate_tau <- rate_ratios %>% 
   filter(t_ratio != 1 & lambda_ratio != 1) %>% # remove trivial pairs where it is the lowest heating rate
   ggplot(mapping = aes(x = delta_tau2_hat * Tk, 
                        y = delta_tau2 * Tk,
@@ -733,19 +733,19 @@ g_predict_tau <- rate_ratios %>%
   geom_abline(slope = 1, intercept = 0, lty = 2, alpha = 0.6) +
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, col = 1) + 
-  labs(x = expression("Predicted heating tolerance (\u00B0C)"), 
+  labs(x = expression("Estimated heating tolerance (\u00B0C)"), 
        y = expression("Observed heating tolerance (\u00B0C)")) +
   scale_colour_viridis_d(option = "C") +
   scale_x_continuous(expand = c(0,0), limits = c(0, 30)) +
   scale_y_continuous(expand = c(0,0), limits = c(0, 30)) +
   theme(legend.position="none")
 
-g_predict_tau
+g_estimate_tau
 ```
 
-We can plot the same as Figure \@ref(fig:gamma) but using the interspecific value of `r round(gamma,3)` for $\gamma$ (Figure \@ref(fig:inter-gamma)). Doing so increases our prediction error for a species.
+We can plot the same as Figure \@ref(fig:gamma) but using the interspecific value of `r round(gamma,3)` for $\gamma$ (Figure \@ref(fig:inter-gamma)). Doing so increases our estimation error for a species.
 
-```{r inter-gamma, echo = FALSE, fig.cap = "Predicted heating tolerances calculated using a value of 0.766 for gamma, representing an interspecific parameter. Colours are species."}
+```{r inter-gamma, echo = FALSE, fig.cap = "Estimated heating tolerances calculated using a value of 0.766 for gamma, representing an interspecific parameter. Colours are species."}
 rate_ratios %>% 
    filter(t_ratio != 1 & lambda_ratio != 1) %>% # remove trivial pairs where it is the lowest heating rate
   ggplot(mapping = aes(x = delta_tau2_hat_inter * Tk, 
@@ -756,7 +756,7 @@ rate_ratios %>%
   geom_smooth(method = "lm", se = FALSE, col = 1) + 
   scale_x_continuous(expand = c(0,0), limits = c(0, 30)) +
   scale_y_continuous(expand = c(0,0), limits = c(0, 30)) +
-  labs(x = expression("Predicted heating tolerance (\u00B0C)"), 
+  labs(x = expression("Estimated heating tolerance (\u00B0C)"), 
        y = expression("Observed heating tolerance (\u00B0C)")) +
   scale_colour_viridis_d(option = "C") +
   theme(legend.position="none")
@@ -768,7 +768,7 @@ rate_ratios %>%
 
 We can visualise the general relationship described by Equation \@ref(eq:eq15), using median values of heating rate, $T_c$ and $T_a$ across all species and $\gamma =$ `r round(gamma,3)`.
 
-```{r gen, fig.cap = "Generalised graph of predicted heating tolerance by acclimation temperature and heating rate (colours)."}
+```{r gen, fig.cap = "Generalised graph of estimated heating tolerance by acclimation temperature and heating rate (colours)."}
 sp_heat_rate = median(ARR$heating_rate)
 sp_ta = median(ARR$ta_low)
 sp_tc = median(ARR$tc_low)
@@ -797,9 +797,9 @@ gen_ecto <- expand_grid(heating_rate, ta) %>%
 gen_ecto
 ```
 
-Figure \@ref(fig:gen) can also be visualised as predicted upper thermal tolerance limit $T_c$ for any acclimation temperature $T_a$.
+Figure \@ref(fig:gen) can also be visualised as estimated upper thermal tolerance limit $T_c$ for any acclimation temperature $T_a$.
 
-```{r predict-tc, fig.cap = "Generalised graph of predicted upper thermal tolerance limit by acclimation temperature and heating rate (colours)."}
+```{r estimate-tc, fig.cap = "Generalised graph of estimated upper thermal tolerance limit by acclimation temperature and heating rate (colours)."}
 expand_grid(heating_rate, ta) %>% 
   mutate(sp_lambda = sp_heat_rate / Tk,
          sp_tau_a = sp_ta / Tk,
@@ -826,7 +826,7 @@ Table: (\#tab:maths) Main mathematical notation and description used.
 |:------:|:------------|
 | $H$ | Heating tolerance; range of temperatures between $T_a$ and $T_c$	| 
 | $\Delta t$ | Elapsed duration of a heating assay between $t_a$ and $t_c$	|
-| $_r$ 	| Variables rescaled by the Universal Temperature Dependence	|
+| $_r$ 	| Variables rescaled by the temperature-dependence of biological rates	|
 | $_a$ 	| Variables referring to acclimation or starting temperature of a heating assay	|
 | $_c$ 	| Variables referring to the upper thermal tolerance limit of a heating assay	|
 | $\tau$ | Normalised temperature scale centred around $T_K$ (normalisation constant `r Tk`K) | 
@@ -849,13 +849,13 @@ p2 <- plot_grid(heating_graph + theme(legend.position="none"),
 fig2 <- plot_grid(p2, legend, rel_widths =c(3, 0.5))
 fig2
 
-# prediction graphs
+# estimation graphs
 pred_high_low <- pred3 + aes(col = heating_rate) + 
   scale_x_continuous(expand = c(0,0), limits = c(0, 40)) +
   scale_y_continuous(expand = c(0,0), limits = c(0, 40)) +
   geom_smooth(method = "lm", se = FALSE, col = 1) +
   scale_colour_viridis_c(name = expression("Heating rate (\u00B0C h" ^-1 * ")"), trans = "log10", labels = function(x) signif(x)) +
-  ggtitle("Predict from lower acclimation temperature") +
+  ggtitle("Estimate from lower acclimation temperature") +
   theme(legend.position="none")
 
 pred_low_high <- pred4 + aes(col = heating_rate) + 
@@ -863,7 +863,7 @@ pred_low_high <- pred4 + aes(col = heating_rate) +
   scale_y_continuous(expand = c(0,0), limits = c(0, 40)) +
   geom_smooth(method = "lm", se = FALSE, col = 1) +
   scale_colour_viridis_c(name = expression("Heating rate (\u00B0C h" ^-1 * ")"), trans = "log10", labels = function(x) signif(x)) +
-  ggtitle("Predict from higher acclimation temperature") +
+  ggtitle("Estimate from higher acclimation temperature") +
   theme(legend.position="none")
 
 p3 <- plot_grid(pred_high_low, pred_low_high, labels = "AUTO", nrow = 1, align = "h", hjust = -1, label_size = 10)
@@ -871,14 +871,14 @@ fig3 <- plot_grid(p3, legend, rel_widths =c(3, 0.5))
 fig3
 
 # Heating rate effect
-fig5 <- plot_grid(g_departure, g_scaling, g_predict_tau, labels = "AUTO", nrow = 1, align = "h", hjust = -1, label_size = 10)
+fig5 <- plot_grid(g_departure, g_scaling, g_estimate_tau, labels = "AUTO", nrow = 1, align = "h", hjust = -1, label_size = 10)
 fig5
 ```
 
 Figures saved as TIFF. Resulting dataset (`ARR`) saved as CSV.
 
 ```{r save, eval=FALSE, include=FALSE}
-journal <- "Biorivx"
+journal <- "NCC"
 dir.create(paste0("../figures/", journal, "/"))
 
 for(i in c("tiff", "jpeg")){
