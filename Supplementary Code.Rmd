@@ -128,8 +128,8 @@ heating_graph
 k <- 8.61733 * 10 ^ -5
 # Kelvin to Celsius conversion for normalisation T_K
 Tk <- 273.15
-# define \beta for a given activation energy, E = 0.6 (Equation 5)
-beta_K <- 0.6 / (k * Tk)
+# define \beta for a given activation energy, E = 0.66 (Equation 5)
+beta_K <- 0.66 / (k * Tk)
 ```
 
 We use the Boltzmann-Arrhenius equation, Equation \@ref(eq:BA), to represent the non-linear temperature-dependence of biological rates. We assume that the Boltzmann-Arrhenius equation adequately encompasses all physiological processes underlying heating tolerance and upper thermal tolerance limits, at least phenomenologically.
@@ -141,7 +141,7 @@ Mass-specific biological rates ($r$) increase with temperature following:
     (\#eq:BA)
 \end{equation}
 
-Where $R_0$ is a normalisation factor, $E$ is activation energy, $k$ is Boltzmann's constant ($8.617 {\times} 10^{-5}$ eV K^-1^) and $T$ is temperature in Kelvin. We use a value of 0.6 eV for $E$ representing mean activation energy of biological rates across taxa [@Dell2011].
+Where $R_0$ is a normalisation factor, $E$ is activation energy, $k$ is Boltzmann's constant ($8.617 {\times} 10^{-5}$ eV K^-1^) and $T$ is temperature in Kelvin. We use a value of 0.66 eV for $E$ representing mean activation energy of biological rates across taxa [@Dell2011].
 
 Although $E$ varies greatly among taxa and biological rates of interest, varying the value of $E$ does not meaningfully change our results (see [Sensitivity of activation energy]). $R_0$ is not used in the calculation of rescaled heating duration and does not affect our results. 
 
@@ -198,7 +198,7 @@ where
 \beta = \frac{E}{k T_K} (\#eq:eq3)
 \end{equation}
 
-$\beta$ is a constant with an approximate value of 25.5 using $E =$ 0.6 (`beta_K`).
+$\beta$ is a constant with an approximate value of 25.5 using $E =$ 0.66 (`beta_K`).
 
 Thus Equation \@ref(eq:eq2) simplifies to
 
@@ -434,6 +434,17 @@ sensi_plot <- ggplot(data = ARR_list,
   theme_classic(base_size = 12)
 
 sensi_plot
+```
+
+```{r, fig.cap="R2 values of the regression between rescaled heating durations for the lower and higher acclimation temperatures calculated using a range of activation energies."}
+
+# Table of R2 Values
+ARR_list %>% 
+  group_by(activation) %>% 
+  group_map(~ summary(lm(delta_tr_high ~ delta_tr_low, data = .x))$r.squared) %>% 
+  unlist() %>% 
+  data.frame(EA = activation, "R2" = .) %>% 
+  knitr::kable(digits = 3)
 ```
 
 ***
@@ -837,7 +848,7 @@ Table: (\#tab:maths) Main mathematical notation and description used.
 
 # Manuscript Figures
 
-```{r figs, eval=FALSE}
+```{r figs, include = FALSE}
 # rescaled graphs
 legend <- get_legend(heating_graph + theme(legend.box.margin = margin(0, 0, 0, 0)))
 
@@ -877,8 +888,8 @@ fig5
 
 Figures saved as TIFF. Resulting dataset (`ARR`) saved as CSV.
 
-```{r save, eval=FALSE, include=FALSE}
-journal <- "NCC"
+```{r save, include=FALSE}
+journal <- "JAnim"
 dir.create(paste0("../figures/", journal, "/"))
 
 for(i in c("tiff", "jpeg")){
@@ -894,7 +905,7 @@ save_plot(plot = pred1, filename = paste0("../figures/", journal, "/figS3.jpeg")
 save_plot(plot = pred2, filename = paste0("../figures/", journal, "/figS4.jpeg"), dpi = 300, bg = "white")
 
 # data
-# write.csv(ARR, file = "rescaled_heating_tolerances_data.csv", row.names = FALSE)
+write.csv(ARR, file = "rescaled_heating_tolerances_data.csv", row.names = FALSE)
 ```
 
 ***
