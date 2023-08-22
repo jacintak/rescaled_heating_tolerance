@@ -3,7 +3,7 @@
 Jacinta Kong [jacintadkong@gmail.com]
 Department of Zoology, Trinity College Dublin, Ireland
 
-Data and code for Heating tolerance of an ectotherm does not vary when temperature’s influence on biological rates is accounted for. 
+Data and code for Heating tolerance of ectotherms is explained by temperature’s non-linear influence on biological rates.
 
 [![DOI](https://zenodo.org/badge/533381701.svg)](https://zenodo.org/badge/latestdoi/533381701)
 
