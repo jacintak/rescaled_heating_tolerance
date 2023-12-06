@@ -69,7 +69,7 @@ This document presents the full workflow and code of *Heating tolerance of ectot
 
 ```{r}
 # Import Morley et al 2018
-ARR <- readxl::read_excel("../data/Morley2018.xlsx",  skip = 8) %>% 
+ARR <- readxl::read_excel("data/Morley2018.xlsx",  skip = 8) %>% 
   # Add unique id
   rowid_to_column("row_ID") %>%  
   # remove blank rows
