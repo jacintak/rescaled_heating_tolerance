@@ -4,8 +4,8 @@ subtitle: "Heating tolerance of ectotherms scales with temperature’s non-linea
 date: "`r format(Sys.Date(), '%d/%m/%Y')`"
 author:
   - Jacinta Kong^[Trinity College Dublin, Ireland, kongj@tcd.ie]
-  - Andrew Jackson^[Trinity College Dublin, Ireland, jacksoan@tcd.ie]
-  - Nicholas Payne^[Trinity College Dublin, Ireland, paynen@tcd.ie]
+  - Andrew L Jackson^[Trinity College Dublin, Ireland, jacksoan@tcd.ie]
+  - Nicholas L Payne^[Trinity College Dublin, Ireland, paynen@tcd.ie]
   - Jean Fran&ccedil;ois Arnoldi^[CNRS, France, arnoldi.jeff@gmail.com]
 output:
   bookdown::html_document2:
@@ -50,7 +50,7 @@ The analysis was conducted in `r R.version.string` [@R-base] running `Tidyverse`
 # Thermal tolerance data
 
 ```{r import}
-ARR <- readxl::read_excel("../data/Morley2018.xlsx",  skip = 8) %>% 
+ARR <- readxl::read_excel("data/Morley2018.xlsx",  skip = 8) %>% 
   # Add unique id
   rowid_to_column("row_ID") %>%  
   # remove blank rows
