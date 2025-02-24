@@ -7,12 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jacinta Kong">
-<meta name="author" content="Andrew Jackson">
+<meta name="author" content="Andrew L Jackson">
 <meta name="author" content="Nicholas Payne">
 <meta name="author" content="Jean François Arnoldi">
-<meta name="dcterms.date" content="2023-12-06">
+<meta name="dcterms.date" content="2025-02-24">
 
-<title>Heating tolerance of ectotherms scales with temperature’s non-linear influence on biological rates</title>
+<title>Heat limits scale with metabolism in ectothermic animals</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3292,7 +3292,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Heating tolerance of ectotherms scales with temperature’s non-linear influence on biological rates</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Heat limits scale with metabolism in ectothermic animals</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 <p class="subtitle lead">Supplementary material</p>
 </div>
 
@@ -3310,7 +3310,7 @@ window.Quarto = {
           </p>
       </div>
     <div class="quarto-title-meta-contents">
-    <p class="author">Andrew Jackson <a href="mailto:jacksoan@tcd.ie" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+    <p class="author">Andrew L Jackson <a href="mailto:jacksoan@tcd.ie" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
   </div>
   <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -3341,7 +3341,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 6, 2023</p>
+      <p class="date">February 24, 2025</p>
     </div>
   </div>
   
@@ -3362,7 +3362,7 @@ This document presents the full workflow and code of <em>Heating tolerance of ec
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Morley et al 2018</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ARR <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;data/Morley2018.xlsx&quot;</span>,  <span class="at">skip =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ARR <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;data/Morley_et_al_(2018)_-_Collated_Species_Acclimation_Data.xlsx&quot;</span>,  <span class="at">skip =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add unique id</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="st">&quot;row_ID&quot;</span>) <span class="sc">%&gt;%</span>  </span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove blank rows</span></span>
@@ -3389,7 +3389,7 @@ This document presents the full workflow and code of <em>Heating tolerance of ec
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">ht_high =</span> tc_high <span class="sc">-</span> ta_high)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>We reanalyzed a dataset on thermal tolerances of diverse ectotherms containing Acclimation Response Ratios (ARR), acclimation temperatures (<span class="math inline">\(T_a\)</span>) and upper thermal tolerance limits (<span class="math inline">\(T_c\)</span>) compiled from the literature between 1960 – 2015 <span class="citation" data-cites="Morley2018 Morley2019">(<a href="#ref-Morley2018" role="doc-biblioref">Morley et al. 2018</a>, <a href="#ref-Morley2019" role="doc-biblioref">2019</a>)</span>. The original dataset is available from the <a href="https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359">Polar Data Centre</a> under an Open Government Licence v3.0 <span class="citation" data-cites="Morley2018">(<a href="#ref-Morley2018" role="doc-biblioref">Morley et al. 2018</a>)</span>. Ectotherms were acclimated for between 1 and 300 days to a lower temperature or a higher temperature for a paired observation for each species.</p>
+<p>We reanalyzed a dataset on thermal tolerances of diverse ectotherms containing Acclimation Response Ratios (ARR), acclimation temperatures (<span class="math inline">\(T_a\)</span>) and upper thermal tolerance limits (<span class="math inline">\(T_c\)</span>) compiled from the literature between 1960 – 2015 <span class="citation" data-cites="Morley2018 Morley2019">(<a href="#ref-Morley2018" role="doc-biblioref">Morley et al. 2018</a>, <a href="#ref-Morley2019" role="doc-biblioref">2019</a>)</span>. The original dataset is available from the <a href="https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359">Polar Data Centre</a> under an Open Government Licence v3.0 <span class="citation" data-cites="Morley2018">(<a href="#ref-Morley2018" role="doc-biblioref">Morley et al. 2018</a>)</span>. Specifically the file is named “Morley et al (2018) - Collated Species Acclimation Data.xlsx” on the repository but the downloaded file has white space replaced with “_“. Ectotherms were acclimated for between 1 and 300 days to a lower temperature or a higher temperature for a paired observation for each species.</p>
 <p>Data were only included if each species had thermal tolerances measured for two different starting acclimation temperatures with an average of 10 °C apart, allowing us to compare heating tolerances both within and among species. The dataset contained 369 observations of 316 species from 15 Classes from 7 Phyla: Chordata, Arthropoda, Mollusca, Platyhelminthes, Echinodermata, Brachiopoda and Cnidaria). These species spanned northern and southern hemispheres, polar to tropical latitudes, and freshwater, marine and terrestrial habitats.</p>
 <p>Animals were heated under a constant ramping temperature from their acclimation temperature until the point of organismal collapse, which we refer to here as their upper thermal tolerance limit (<span class="math inline">\(T_c\)</span>), called CT<sub>max</sub> in <span class="citation" data-cites="Morley2019">Morley et al. (<a href="#ref-Morley2019" role="doc-biblioref">2019</a>)</span>. A small proportion of observations used lethal temperatures as the endpoint and we did not exclude these observations but do not consider our analysis to appropriately apply to mortality rates or liklihood of survival. Within paired observations, each species was measured at the same constant heating rate, and heating rates varied among paired observations representing independent species or experimental assays. Thermal tolerance limits were assayed for both acclimation temperatures in paired observations for a species (referred as <code>tc_low</code> or <code>tc_high</code> in this code).</p>
 <p>The upper thermal tolerance limit of the lower acclimation temperature was not reported in <span class="citation" data-cites="Morley2019">Morley et al. (<a href="#ref-Morley2019" role="doc-biblioref">2019</a>)</span>. We derived the upper thermal tolerance limit of the lower acclimation temperature from rearranging the formula for Acclimation Response Ratios. We first multiplied the acclimation response ratio for each species by the difference in acclimation temperatures; called acclimation window (<code>acclim_window</code>) following <span class="citation" data-cites="Morley2019">Morley et al. (<a href="#ref-Morley2019" role="doc-biblioref">2019</a>)</span>. We then subtracted this result from the upper thermal tolerance of the higher acclimation temperature (<code>tc_high</code>) for each species to calculate the upper thermal tolerance of the lower acclimation temperature (<code>tc_low</code>).</p>
@@ -5039,7 +5039,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
 <div class="sourceCode" id="cb31" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Heating tolerance of ectotherms scales with temperature’s non-linear influence on biological rates&quot;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Heat limits scale with metabolism in ectothermic animals&quot;</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> &quot;Supplementary material&quot;</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="an">project:</span></span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">    execute-dir: project</span></span>
@@ -5049,7 +5049,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co">    email: jacintadkong@gmail.com</span></span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliations:</span></span>
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">    - name: Trinity College Dublin, Ireland</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: Andrew Jackson</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: Andrew L Jackson</span></span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co">    email: jacksoan@tcd.ie</span></span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliations:</span></span>
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co">    - name: Trinity College Dublin, Ireland</span></span>
@@ -5109,7 +5109,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-69"><a href="#cb31-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-72"><a href="#cb31-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb31-73"><a href="#cb31-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Import Morley et al 2018</span></span>
-<span id="cb31-74"><a href="#cb31-74" aria-hidden="true" tabindex="-1"></a>ARR <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;data/Morley2018.xlsx&quot;</span>,  <span class="at">skip =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-74"><a href="#cb31-74" aria-hidden="true" tabindex="-1"></a>ARR <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;data/Morley_et_al_(2018)_-_Collated_Species_Acclimation_Data.xlsx&quot;</span>,  <span class="at">skip =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-75"><a href="#cb31-75" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add unique id</span></span>
 <span id="cb31-76"><a href="#cb31-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="st">&quot;row_ID&quot;</span>) <span class="sc">%&gt;%</span>  </span>
 <span id="cb31-77"><a href="#cb31-77" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove blank rows</span></span>
@@ -5136,7 +5136,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-98"><a href="#cb31-98" aria-hidden="true" tabindex="-1"></a>         <span class="at">ht_high =</span> tc_high <span class="sc">-</span> ta_high)</span>
 <span id="cb31-99"><a href="#cb31-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb31-100"><a href="#cb31-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-101"><a href="#cb31-101" aria-hidden="true" tabindex="-1"></a>We reanalyzed a dataset on thermal tolerances of diverse ectotherms containing Acclimation Response Ratios (ARR), acclimation temperatures ($T_a$) and upper thermal tolerance limits ($T_c$) compiled from the literature between 1960 – 2015 <span class="co">[</span><span class="ot">@Morley2018;@Morley2019</span><span class="co">]</span>. The original dataset is available from the <span class="co">[</span><span class="ot">Polar Data Centre</span><span class="co">](https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359)</span> under an Open Government Licence v3.0 <span class="co">[</span><span class="ot">@Morley2018</span><span class="co">]</span>. Ectotherms were acclimated for between <span class="in">`r min(ARR$&#39;Acclimation duration/ days&#39;)`</span> and <span class="in">`r max(ARR$&#39;Acclimation duration/ days&#39;)`</span> days to a lower temperature or a higher temperature for a paired observation for each species. </span>
+<span id="cb31-101"><a href="#cb31-101" aria-hidden="true" tabindex="-1"></a>We reanalyzed a dataset on thermal tolerances of diverse ectotherms containing Acclimation Response Ratios (ARR), acclimation temperatures ($T_a$) and upper thermal tolerance limits ($T_c$) compiled from the literature between 1960 – 2015 <span class="co">[</span><span class="ot">@Morley2018;@Morley2019</span><span class="co">]</span>. The original dataset is available from the <span class="co">[</span><span class="ot">Polar Data Centre</span><span class="co">](https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359)</span> under an Open Government Licence v3.0 <span class="co">[</span><span class="ot">@Morley2018</span><span class="co">]</span>. Specifically the file is named &quot;Morley et al (2018) - Collated Species Acclimation Data.xlsx&quot; on the repository but the downloaded file has white space replaced with &quot;_&quot;. Ectotherms were acclimated for between <span class="in">`r min(ARR$&#39;Acclimation duration/ days&#39;)`</span> and <span class="in">`r max(ARR$&#39;Acclimation duration/ days&#39;)`</span> days to a lower temperature or a higher temperature for a paired observation for each species. </span>
 <span id="cb31-102"><a href="#cb31-102" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-103"><a href="#cb31-103" aria-hidden="true" tabindex="-1"></a>Data were only included if each species had thermal tolerances measured for two different starting acclimation temperatures with an average of 10 <span class="dv">&amp;deg;</span>C apart, allowing us to compare heating tolerances both within and among species. The dataset contained <span class="in">`r nrow(ARR)`</span> observations of <span class="in">`r length(unique(ARR$Name))`</span> species from <span class="in">`r length(unique(ARR$Class))`</span> Classes from 7 Phyla: Chordata, Arthropoda, Mollusca, Platyhelminthes, Echinodermata, Brachiopoda and Cnidaria). These species spanned northern and southern hemispheres, polar to tropical latitudes, and freshwater, marine and terrestrial habitats.</span>
 <span id="cb31-104"><a href="#cb31-104" aria-hidden="true" tabindex="-1"></a></span>
