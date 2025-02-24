@@ -941,7 +941,7 @@ save_plot(plot = pred1, filename = paste0("../figures/", journal, "/figS3.jpeg")
 save_plot(plot = pred2, filename = paste0("../figures/", journal, "/figS4.jpeg"), dpi = 300, bg = "white")
 
 # data
-write.csv(ARR, file = "rescaled_heating_tolerances_data.csv", row.names = FALSE)
+write.csv(ARR, file = "output/rescaled_heating_tolerances_data.csv", row.names = FALSE)
 ```
 
 ***
