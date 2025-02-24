@@ -1,5 +1,5 @@
 ---
-title: "Heating tolerance of ectotherms scales with temperature’s non-linear influence on biological rates"
+title: "Heat limits scale with metabolism in ectothermic animals"
 subtitle: "Supplementary material"
 project:
     execute-dir: project
@@ -9,7 +9,7 @@ author:
     email: jacintadkong@gmail.com
     affiliations:
     - name: Trinity College Dublin, Ireland
-  - name: Andrew Jackson
+  - name: Andrew L Jackson
     email: jacksoan@tcd.ie
     affiliations:
     - name: Trinity College Dublin, Ireland
@@ -69,7 +69,7 @@ This document presents the full workflow and code of *Heating tolerance of ectot
 
 ```{r}
 # Import Morley et al 2018
-ARR <- readxl::read_excel("data/Morley2018.xlsx",  skip = 8) %>% 
+ARR <- readxl::read_excel("data/Morley_et_al_(2018)_-_Collated_Species_Acclimation_Data.xlsx",  skip = 8) %>% 
   # Add unique id
   rowid_to_column("row_ID") %>%  
   # remove blank rows
@@ -96,7 +96,7 @@ ARR <- ARR %>%
          ht_high = tc_high - ta_high)
 ```
 
-We reanalyzed a dataset on thermal tolerances of diverse ectotherms containing Acclimation Response Ratios (ARR), acclimation temperatures ($T_a$) and upper thermal tolerance limits ($T_c$) compiled from the literature between 1960 – 2015 [@Morley2018;@Morley2019]. The original dataset is available from the [Polar Data Centre](https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359) under an Open Government Licence v3.0 [@Morley2018]. Ectotherms were acclimated for between `r min(ARR$'Acclimation duration/ days')` and `r max(ARR$'Acclimation duration/ days')` days to a lower temperature or a higher temperature for a paired observation for each species. 
+We reanalyzed a dataset on thermal tolerances of diverse ectotherms containing Acclimation Response Ratios (ARR), acclimation temperatures ($T_a$) and upper thermal tolerance limits ($T_c$) compiled from the literature between 1960 – 2015 [@Morley2018;@Morley2019]. The original dataset is available from the [Polar Data Centre](https://doi.org/10.5285/20010bfb-c6d3-430f-b1f7-d16790ab8359) under an Open Government Licence v3.0 [@Morley2018]. Specifically the file is named "Morley et al (2018) - Collated Species Acclimation Data.xlsx" on the repository but the downloaded file has white space replaced with "_". Ectotherms were acclimated for between `r min(ARR$'Acclimation duration/ days')` and `r max(ARR$'Acclimation duration/ days')` days to a lower temperature or a higher temperature for a paired observation for each species. 
 
 Data were only included if each species had thermal tolerances measured for two different starting acclimation temperatures with an average of 10 &deg;C apart, allowing us to compare heating tolerances both within and among species. The dataset contained `r nrow(ARR)` observations of `r length(unique(ARR$Name))` species from `r length(unique(ARR$Class))` Classes from 7 Phyla: Chordata, Arthropoda, Mollusca, Platyhelminthes, Echinodermata, Brachiopoda and Cnidaria). These species spanned northern and southern hemispheres, polar to tropical latitudes, and freshwater, marine and terrestrial habitats.
 
