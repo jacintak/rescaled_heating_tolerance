@@ -533,7 +533,7 @@ The $R^2$ of predicting the thermal tolerance of the higher acclimation temperat
 
 ```{r varying-rates}
 # Import and prepare Morley et al 2016
-varying_rates <- read.csv("Morley_et_al_2016.csv") %>% 
+varying_rates <- read.csv("data/Morley_et_al_2016.csv") %>% 
   rename(heating_rate = 8,
          ta = 9,
          tc = 10) %>% 

@@ -3921,7 +3921,7 @@ Figure 3: Observed vs estimated heating tolerance for the higher acclimation te
 <span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>))</span>
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>pred4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell column-page quarto-layout-panel" data-layout-ncol="2" data-layout-align="center">
+<div class="cell column-page quarto-layout-panel" data-layout-align="center" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
@@ -3964,7 +3964,7 @@ Figure 3: Observed vs estimated heating tolerance for the higher acclimation te
 <details open class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import and prepare Morley et al 2016</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>varying_rates <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Morley_et_al_2016.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>varying_rates <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Morley_et_al_2016.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">heating_rate =</span> <span class="dv">8</span>,</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">ta =</span> <span class="dv">9</span>,</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">tc =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
@@ -5573,7 +5573,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-565"><a href="#cb31-565" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-566"><a href="#cb31-566" aria-hidden="true" tabindex="-1"></a><span class="in">```{r varying-rates}</span></span>
 <span id="cb31-567"><a href="#cb31-567" aria-hidden="true" tabindex="-1"></a><span class="in"># Import and prepare Morley et al 2016</span></span>
-<span id="cb31-568"><a href="#cb31-568" aria-hidden="true" tabindex="-1"></a><span class="in">varying_rates &lt;- read.csv(&quot;Morley_et_al_2016.csv&quot;) %&gt;% </span></span>
+<span id="cb31-568"><a href="#cb31-568" aria-hidden="true" tabindex="-1"></a><span class="in">varying_rates &lt;- read.csv(&quot;data/Morley_et_al_2016.csv&quot;) %&gt;% </span></span>
 <span id="cb31-569"><a href="#cb31-569" aria-hidden="true" tabindex="-1"></a><span class="in">  rename(heating_rate = 8,</span></span>
 <span id="cb31-570"><a href="#cb31-570" aria-hidden="true" tabindex="-1"></a><span class="in">         ta = 9,</span></span>
 <span id="cb31-571"><a href="#cb31-571" aria-hidden="true" tabindex="-1"></a><span class="in">         tc = 10) %&gt;% </span></span>
