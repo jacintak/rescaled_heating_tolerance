@@ -883,7 +883,7 @@ fig5
 
 # Manuscript Figures
 
-```{r figs, echo=T, eval = F}
+```{r figs, echo=T, eval = TRUE}
 #| code-fold: true
 # rescaled graphs
 legend <- get_legend(heating_graph + 
@@ -932,32 +932,32 @@ fig4
 
 Figures saved as TIFF. Resulting dataset containing all analyses (`ARR`) are saved as CSV.
 
-```{r save, eval = F}
+```{r save, eval = TRUE}
 #| code-fold: true
 journal <- "JAnim"
 dir.create(paste0("figures/", journal, "/"))
 
 # set the output resolution of the saved figures
-output_dpi <- 300
+output_dpi <- 600
 
 for(i in c("tiff", "jpeg")){
 save_plot(plot = fig2, 
-          filename = paste0("../figures/", journal, "/fig2.", i), 
+          filename = paste0("figures/", journal, "/fig2.", i), 
           dpi = output_dpi, base_width = 10, bg = "white")
 save_plot(plot = fig3, 
-          filename = paste0("../figures/", journal, "/fig3.", i), 
+          filename = paste0("figures/", journal, "/fig3.", i), 
           dpi = output_dpi, base_width = 10, bg = "white")
 save_plot(plot = fig4, 
-          filename = paste0("../figures/", journal, "/fig4.", i), 
+          filename = paste0("figures/", journal, "/fig4.", i), 
           dpi = output_dpi, base_width = 8, base_height = 3, bg = "white")
 save_plot(plot = fig5, 
-          filename = paste0("../figures/", journal, "/fig5.", i), 
+          filename = paste0("figures/", journal, "/fig5.", i), 
           dpi = output_dpi, base_width = 5, bg = "white")
 }
 
 # Supplementary
 save_plot(plot = sensi_plot, 
-          filename = paste0("../figures/", journal, "/figS1.jpeg"), 
+          filename = paste0("figures/", journal, "/figS1.jpeg"), 
           dpi = output_dpi, base_width = 10, base_height = 5, bg = "white")
 # save_plot(plot = rescaled_tolerances, filename = paste0("../figures/", journal, "/figS2.jpeg"), dpi = 300, bg = "white")
 save_plot(plot = pred1, 
