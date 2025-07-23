@@ -5,3 +5,5 @@
 
 # ignore the figures output directory as files can be very large
 figures/*
+
+*.DS_Store
